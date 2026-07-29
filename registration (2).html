@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multistep Form</title>
+  <link rel="stylesheet" href="test.css" />
+  <script src="test.js" defer></script>
+  
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha512-...your integrity hash here..."
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <style>
+          /* Style the form group */
+select {
+    pointer-events: auto;
+}
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+/* Style the label/question */
+.form-label {
+  display: block;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+/* Style the form-check container */
+.form-check {
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+/* Style the radio button */
+.form-check-input {
+  position: absolute;
+  left: 0;
+  top: 0.15rem;
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Style the label next to the radio */
+
+
+        </style>
+        
+</head>
+
+<body>
+  <form class="form-wizard" id="registration-form">
+
+    
+    <!-- Registration Successful -->
+    <div class="completed" hidden>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+           viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+      </svg>
+      <h3>Registration Successful!</h3>
+      <p>Login to your Account</p>
+    </div>
+
+    <h1>Registration</h1>
+
+    <!-- Progress bar -->
+    <div class="progress-container">
+      <div class="progress"></div>
+      <ol>
+        <li class="current">Personal</li>
+        <li>Emergency</li>
+        <li>Transport</li>
+        <li>Residential</li>
+        <!-- <li>Account</li> -->
+        <li>Fee</li>
+      </ol>
+    </div>
+
+    <!-- Steps -->
+    <div class="steps-container">
+
+      <!-- Step 1: Personal -->
+      <div class="step">
+        <h3><i class="fas fa-user"></i> Personal Information</h3>
+        
+        <div class="form-group">
+          <input type="text" id="full-name" name="full_name" placeholder=" " required/>
+          <label for="full_name">Full Name</label>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <input type="text" id="id_no" name="id_no" placeholder=" "  maxlength="8" pattern="\d{1,8}" required/>
+            <label for="id_no2">ID NO.</label>
+          </div>
+          <div class="form-group">
+            <input type="text" id="kra_pin" name="kra_pin" placeholder=" "  maxlength="10"/>
+            <label for="kra_pin">KRA PIN</label>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <input type="date" id="date_of_birth" name="date_of_birth" required/>
+            <label for="date_of_birth">Date Of Birth</label>
+          </div>
+          <div class="form-group">
+            <select id="education_level" name="education_level" required >
+              <option value="" disabled selected>Select Level of Education</option>
+              <option>None</option><option>Primary</option><option>Secondary</option>
+              <option>Certificate</option><option>Diploma</option><option>Degree</option>
+              <option>Masters</option><option>PhD</option><option>Undergraduate</option>
+              <option>Postgraduate</option><option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <select id="gender" name="gender" required onchange="handleGenderChange();">
+              <option value="" disabled selected>Select Gender</option>
+              <option value="male">Male</option><option value="female">Female</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select id="marital_status" name="marital_status" required >
+              <option value="" disabled selected>Select Marital Status</option>
+              <option>Single</option><option>Married</option>
+              <option>Divorced</option><option>Widowed</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+          <input type="tel" id="whatsapp-number" name="contact_number" placeholder=" " pattern="0[17][0-9]{8}" required/>
+          <label for="contact_number">Contact Number (Official)</label>
+        </div>
+        <div class="form-group">
+          <input type="email" id="email_address" name="email_address" placeholder=" " required/>
+          <label for="email_address">Email Address</label>
+        </div>
+        </div>
+        <div class="form-group" id="Whatsapp_number_group" >  
+            <input type="tel" class="form-control" id="whatsapp_number_group" name="whatsapp_number_group" placeholder="" >
+            <label for="whatsapp_number_group">WhatsApp Number</label>
+          </div>
+      </div>
+
+      <!-- Step 2: Contact & Address -->
+      <div class="step">
+        <h3><i class="fas fa-route"></i>Emergency Information</h3>
+        <div class="form-group">
+            <input type="text" id="next_kin" name="next_kin" placeholder=" " required />
+            <label for="next_kin">Next Of Kin</label>
+          </div>
+
+            <div class="form-group">
+            <select id="relationship" name="relationship" required>
+              <option value="" disabled selected>Select Relationship</option>
+              <option>Parent</option><option>Sibling</option><option>Spouse</option>
+              <option>Child</option><option>Relative</option>
+              <option>Guardian</option><option>Other</option>
+            </select>
+          </div>
+          <div class="form-row">
+          <div class="form-group">
+          <input type="tel" id="next_kin_phone" name="next_kin_phone" pattern="^0[17][0-9]{8}$" maxlength="10" inputmode="numeric" placeholder=" " required />
+          <label for="next_kin_phone">Next Of Kin Phone</label>
+        </div>
+        <div class="form-group">
+          <input type="tel" id="emergency_contact" name="emergency_contact" placeholder=" " required/>
+          <label for="emergency_contact">Emergency Contact</label>
+        </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+          <input type="text" id="nssf" name="nssf"  placeholder=" "  />
+          <label for="nssf">NSSF Number</label>
+        </div>
+        <div class="form-group">
+          <input type="text" id="sha" name="sha" placeholder=" " />
+          <label for="sha">SHA Number</label>
+        </div>
+        <div class="form-group">
+          <input type="text" id="sha" name="sha" placeholder=" " />
+          <label for="sha">SHA Number</label>
+        </div>
+        </div>
+        <div class="form-group">
+          <label for="toggle_social">Would you like to provide any social media handles?</label><br />
+        </div>
+       <div class="form-group">
+
+ <select id="social_media" name="social_media"  multiple>
+
+ <option value="" disabled selected >Select Other Social Media</option>
+
+ <option>Facebook</option><option>Twitter</option><option>Instagram</option>
+
+ <option>Tiktok</option>
+
+ </select>
+ </div>
+      </div>
+
+      <!-- Step 3: Transport -->
+      <div class="step">
+  <h3><i class="fas fa-motorcycle"></i> Transport Information</h3>
+
+  <div class="form-group">
+    <select name="mode_of_transport" id="mode-of-travel" required onchange="toggleTravelFields()">
+      <option value="" disabled selected>--Select Mode of Operation--</option>
+      <option value="foot">Walking Courier</option>
+      <option value="cyclist">Cyclist</option>
+      <option value="motorbike">Motorcycle</option>
+      <option value="vehicle">Delivery Van</option>
+    </select>
+  </div>
+
+  <!-- Motorbike Section -->
+  <div id="motorbike-fields" style="display: none;">
+    <div class="form-row">
+      <div class="form-group">
+       <select id="fuel_type" name="fuel_type" onchange="toggleMakeDropdown()" >
+          <option value="" disabled selected>Select Fuel Type</option>
+          <option value="Electric">Electric</option>
+          <option value="Petrol">Petrol</option>
+        </select>
+      </div>
+    </div>
+    
+
+    <div class="form-row">
+      <div class="form-group" id="electric-make-group" style="display: none;">
+        <select id="model_type_electric" name="model_type_electric">
+          <option value="" disabled selected>-- Select Model(Electric) --</option>
+        <option value="Eco1" >Eco1 (Ecobodaa)</option>
+        <option value="Ampersand V1">Ampersand V1</option>
+        <option value="Ampersand V2">Ampersand V2</option>
+        <option value="Roam Air">Roam Air</option>
+        <option value="Roam Air Beta">Roam Air Beta</option>
+        <option value="Spartan One">Spartan One</option>
+        <option value="Spartan X" >Spartan X</option>
+        <option value="Arc Ride Alpha">Arc Ride Alpha</option>
+        <option value="Kiri EV Jumba">Kiri EV Jumba</option>
+        <option value="Stima One">Stima One</option>
+        <option value="Opibus Electric Bike">Opibus Electric Bike</option>
+        <option value="Mazi Max">Mazi Max</option>
+        <option value="Ebee E1">Ebee E1</option>
+        <option value="Bodawerk eBike">Bodawerk eBike</option>
+        <option value="Ecomobilus Xpress">Ecomobilus Xpress</option>
+        <option value="Fika eMoto">Fika eMoto</option>
+      </select>
+      
+        <select id="make_type_electric" name="make_type_electric">
+          <option value="" disabled selected>-- Select Make(Electric) --</option>
+        <option value="Ecobodaa">Ecobodaa</option>
+        <option value="Ampersand">Ampersand</option>
+        <option value="Roam">Roam</option>
+        <option value="Spartan">Spartan</option>
+        <option value="Arc Ride">Arc Ride</option>
+        <option value="Kiri EV">Kiri EV</option>
+        <option value="Stima Boda">Stima Boda</option>
+        <option value="Opibus">Opibus</option>
+        <option value="Mazi Mobility">Mazi Mobility</option>
+        <option value="Ebee">Ebee</option>
+        <option value="Bodawerk">Bodawerk</option>
+        <option value="Ecomobilus">Ecomobilus</option>
+        <option value="Fika Mobility">Fika Mobility</option>
+     </select>
+      </div>
+     
+     
+      <div class="form-group" id="petrol-make-group" style="display: none;">
+        <select id="make_type_petrol" name="make_type_petrol">
+        <option value="" disabled selected>-- Select Make(Petrol) --</option>
+        <option value="Bajaj">Bajaj</option>
+        <option value="TVS">TVS</option>
+        <option value="Boxer">Boxer</option>
+        <option value="Hero MotoCorp"> Hero MotoCorp </option>
+        <option value="Honda"> Honda </option>
+        <option value="Yamaha"> Yamaha </option>
+        <option value="Suzuki"> Suzuki </option>
+        <option value="Skygo"> Skygo </option>
+        <option value="Dayun"> Dayun </option>
+        <option value="Senke"> Senke </option>
+        <option value="Zongshen"> Zongshen </option>
+        <option value="Loncin"> Loncin </option>
+        <option value="Lifan"> Lifan </option>
+        <option value="Captain"> Captain </option>
+        <option value="Keweseki"> Keweseki </option>
+        <option value="Shineray"> Shineray </option>
+      </select>
+        <select id="motorcycleModel" name="motorcycleModel" required>
+        <option value="" disabled selected>-- Select Model(Petrol) --</option>
+  <!-- Bajaj -->
+        <option value="Bajaj Boxer 100" >Bajaj Boxer 100</option>
+        <option value="Bajaj Boxer 150" >Bajaj Boxer 150</option>
+        <option value="Bajaj Pulsar 150" >Bajaj Pulsar 150</option>
+        <option value="Bajaj Discover 125">Bajaj Discover 125</option>
+  <!-- TVS -->
+        <option value="TVS HLX 100">TVS HLX 100</option>
+        <option value="TVS HLX 125">TVS HLX 125</option>
+        <option value="TVS HLX 150">TVS HLX 150</option>
+        <option value="TVS Star HLX 125">TVS Star HLX 125</option>
+        <option value="TVS Apache 160">TVS Apache 160</option>
+  <!-- Haojue -->
+        <option value="Haojue HJ110">Haojue HJ110</option>
+        <option value="Haojue HJ125">Haojue HJ125</option>
+        <option value="Haojue TR150">Haojue TR150</option>
+  <!-- Honda -->
+        <option value="Honda Ace CB125">Honda Ace CB125</option>
+        <option value="Honda Ace 110">Honda Ace 110</option>
+        <option value="Honda XL125">Honda XL125</option>
+
+  <!-- Hero -->
+        <option value="Hero Hunter 125">Hero Hunter 125</option>
+        <option value="Hero Dawn 125">Hero Dawn 125</option>
+        <option value="Hero Ignitor 125">Hero Ignitor 125</option>
+
+  <!-- Dayun -->
+        <option value="Dayun DY125">Dayun DY125</option>
+        <option value="Dayun DY150">Dayun DY150</option>
+
+  <!-- Other Common Brands -->
+        <option value="Skygo SG150">Skygo SG150</option>
+        <option value="Zongshen ZS150">Zongshen ZS150</option>
+        <option value="Rato RT125">Rato RT125</option>
+        <option value="Senke SK125">Senke SK125</option>
+        <option value="Lifan LF125">Lifan LF125</option>
+      </select>
+      </div>
+    </div>
+
+     <div class="form-row">
+        <div class="form-group">
+        <input type="text" id="plate-number-van" name="plate_number" placeholder=" " />
+        <label for="plate_number_van">Plate Number</label>
+      </div>
+      <div class="form-group">
+        <input type="text" id="engine-number-van" name="engine_number" placeholder=" " />
+        <label for="engine_number_van">Engine Number</label>
+      </div>
+      </div>
+      <div class="form-row">
+      <div class="form-group">
+        <input type="text" id="driving-license" name="driving_license_number" placeholder=" " />
+        <label for="driving-license">Driving License Number</label>
+      </div>
+      <div class="form-group">
+            <input type="date" id="license_expiry_date" name="license_expiry_date" required/>
+            <label for="license_expiry_date">License Expiry Date</label>
+          </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <input type="text" id="psv_number" name="psv_number" placeholder=" "/>
+        <label for="psv_number">PSV Number</label>
+      </div>
+            <div class="form-group">
+            <input type="date" id="psv_expiry_date" name="psv_expiry_date" required/>
+            <label for="psv_expiry_date">PSV Expiry Date</label>
+          </div>
+    </div>
+    <div class="form-group">  
+    <select id="insuranceCompanyGrouped" name="insurance_company">
+  <option value="" disabled selected>-- Select an insurance company --</option>
+    <option value="Jubilee Insurance">Jubilee Insurance</option>
+    <option value="Britam Holdings">Britam Holdings</option>
+    <option value="Old Mutual East Africa">Old Mutual East Africa</option>
+    <option value="CIC Insurance Group">CIC Insurance Group</option>
+    <option value="Sanlam East Africa">Sanlam East Africa</option>
+    <option value="ICEA LION Group">ICEA LION Group</option>
+    <option value="APA Insurance">APA Insurance</option>
+    <option value="AAR Insurance">AAR Insurance</option>
+    <option value="Madison Insurance">Madison Insurance</option>
+    <option value="GA Insurance Company">GA Insurance Company</option>
+    <option value="Directline Assurance">Directline Assurance</option>
+    <option value="Heritage Insurance Company">Heritage Insurance Company</option>
+    <option value="Alliance Insurance (TZ)">Alliance Insurance</option>
+    <option value="National Insurance Corporation (TZ)">National Insurance Corporation</option>
+    <option value="Strategis Insurance (TZ)">Strategis Insurance</option>
+    <option value="Tanzindia Assurance">Tanzindia Assurance</option>
+    <option value="Prudential Assurance Uganda">Prudential Assurance Uganda</option>
+    <option value="Liberty Life Assurance Uganda">Liberty Life Assurance Uganda</option>
+    <option value="NIC General Insurance (UG)">NIC General Insurance</option>
+    <option value="Mayfair Insurance (UG)">Mayfair Insurance</option>
+    <option value="Sanlam Assurances Rwanda">Sanlam Assurances</option>
+    <option value="Prime Insurance (RW)">Prime Insurance</option>
+    <option value="Sonarwa (RW)">Sonarwa</option>
+    <option value="BK General Insurance">BK General Insurance</option>
+    <option value="Socabu Vie (BI)">Socabu Vie</option>
+    <option value="Burundi Insurance Corporation (Bicor Sa)">Burundi Insurance Corporation (Bicor Sa)</option>
+    <option value="INKINZO Insurance S.A">INKINZO Insurance S.A</option>
+</select>
+          </div>
+  </div>
+
+  <!-- Van Section -->
+  <div id="van-fields" style="display: none;">
+    <div class="form-row">
+      <div class="form-group">
+        <select name="make_van" id="make_van">
+        <option value="" disabled selected>-- Select Van Make --</option>
+        <option value="Toyota">Toyota</option>
+        <option value="Nissan">Nissan</option>
+        <option value="Isuzu">Isuzu</option>
+        <option value="Mazda">Mazda</option>
+        <option value="Ford">Ford</option>
+        <option value="Tata">Tata</option>
+        <option value="Suzuki">Suzuki</option>
+        <option value="Hyundai">Hyundai</option>
+        <option value="Volkswagen">Volkswagen</option>
+        <option value="Mitsubishi">Mitsubishi</option>
+      </select></div>
+      <div class="form-group">
+            
+        <select name="van_model" id="van_model">
+        <option value="" disabled selected>-- Select Van Model --</option>
+    <!-- Toyota -->
+        <option value="Hiace">Toyota Hiace</option>
+        <option value="TownAce">Toyota TownAce</option>
+        <option value="Probox Van">Toyota Probox Van</option>
+    <!-- Nissan -->
+        <option value="Caravan">Nissan Caravan</option>
+        <option value="Vanette">Nissan Vanette</option>
+        <option value="NV200">Nissan NV200</option>
+    <!-- Isuzu -->
+        <option value="Isuzu NHR">Isuzu NHR</option>
+        <option value="Isuzu Elf">Isuzu Elf</option>
+    <!-- Mazda -->
+        <option value="Mazda Bongo Van">Mazda Bongo Van</option>
+    <!-- Ford -->
+        <option value="Transit">Ford Transit</option>
+    <!-- Tata -->
+        <option value="Ace Zip">Tata Ace Zip</option>
+    <!-- Suzuki -->
+        <option value="Every Van">Suzuki Every Van</option>
+    <!-- Hyundai -->
+        <option value="H1 Van" >Hyundai H1 Van</option>
+    <!-- VW -->
+        <option value="Transporter">Volkswagen Transporter</option>
+    <!-- Mitsubishi -->
+        <option value="Canter Van">Mitsubishi Canter Van</option>
+      </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+        <select name="van_class_type" id="van_class_type">
+        <option value="" disabled selected>-- Select Class Type --</option>
+        <option value="Minivan">Minivan</option>
+        <option value="Cargo Van">Cargo Van</option>
+        <option value="Passenger Van">Passenger Van</option>
+        <option value="Panel Van">Panel Van</option>
+        <option value="Pickup Van">Pickup Van</option>
+        <option value="Light Commercial Vehicle (LCV)">Light Commercial Vehicle (LCV)</option>
+      </select>
+        </div>
+      <div class="form-group">
+        <input type="text" id="van-capacity" name="capacity" placeholder=" "/>
+        <label for="van_capacity">Carrying Capacity (kg)</label>
+      </div>
+      
+    </div>
+    
+      <div class="form-row">
+    <div class="form-group">
+        <input type="text" id="plate-number-van" name="plate_number" placeholder=" " required/>
+        <label for="plate_number_van">Plate Number</label>
+      </div> <div class="form-group">
+        <input type="text" id="chasis-number-van" name="chasis_number" placeholder=" " required/>
+        <label for="chasis_number_van">Chasis Number</label>
+      </div></div>
+      <div class="form-row">
+      <div class="form-group">
+        <input type="text" id="driving-license" name="driving_license_number" placeholder=" " required/>
+        <label for="driving-license">Driving License Number</label>
+      </div>
+      <div class="form-group">
+            <input type="date" id="license_expiry_date" name="license_expiry_date" required/>
+            <label for="license_expiry_date">License Expiry Date</label>
+          </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <input type="text" id="psv_number" name="psv_number" placeholder=" "/>
+        <label for="psv_number">PSV Number</label>
+      </div>
+            <div class="form-group">
+            <input type="date" id="psv_expiry_date" name="psv_expiry_date" required/>
+            <label for="psv_expiry_date">PSV Expiry Date</label>
+          </div>
+    </div>
+     <div class="form-group">
+       <select id="insuranceCompanyGrouped" name="insurance_company">
+  <option value="" disabled selected>-- Select an insurance company --</option>
+    <option value="Jubilee Insurance">Jubilee Insurance</option>
+    <option value="Britam Holdings">Britam Holdings</option>
+    <option value="Old Mutual East Africa">Old Mutual East Africa</option>
+    <option value="CIC Insurance Group">CIC Insurance Group</option>
+    <option value="Sanlam East Africa">Sanlam East Africa</option>
+    <option value="ICEA LION Group">ICEA LION Group</option>
+    <option value="APA Insurance">APA Insurance</option>
+    <option value="AAR Insurance">AAR Insurance</option>
+    <option value="Madison Insurance">Madison Insurance</option>
+    <option value="GA Insurance Company">GA Insurance Company</option>
+    <option value="Directline Assurance">Directline Assurance</option>
+    <option value="Heritage Insurance Company">Heritage Insurance Company</option>
+    <option value="Alliance Insurance (TZ)">Alliance Insurance</option>
+    <option value="National Insurance Corporation (TZ)">National Insurance Corporation</option>
+    <option value="Strategis Insurance (TZ)">Strategis Insurance</option>
+    <option value="Tanzindia Assurance">Tanzindia Assurance</option>
+    <option value="Prudential Assurance Uganda">Prudential Assurance Uganda</option>
+    <option value="Liberty Life Assurance Uganda">Liberty Life Assurance Uganda</option>
+    <option value="NIC General Insurance (UG)">NIC General Insurance</option>
+    <option value="Mayfair Insurance (UG)">Mayfair Insurance</option>
+    <option value="Sanlam Assurances Rwanda">Sanlam Assurances</option>
+    <option value="Prime Insurance (RW)">Prime Insurance</option>
+    <option value="Sonarwa (RW)">Sonarwa</option>
+    <option value="BK General Insurance">BK General Insurance</option>
+    <option value="Socabu Vie (BI)">Socabu Vie</option>
+    <option value="Burundi Insurance Corporation (Bicor Sa)">Burundi Insurance Corporation (Bicor Sa)</option>
+    <option value="INKINZO Insurance S.A">INKINZO Insurance S.A</option>
+</select>
+        </div>
+          </div>
+</div>
+      <!-- Step 4: Residential -->
+     <div class="step">
+  <h3><i class="fas fa-home"></i> Residential Information</h3>
+
+  <div class="form-group floating-label-group">
+    <select id="countySelect" name="county" required>
+                <option value="" disabled selected>-- Choose Your County --</option>
+            </select>
+    </div>
+ <!-- Sub-county Input -->
+  <div class="form-group">
+            <select id="subCountySelect" name="sub_county" disabled required>
+                <option value="" disabled selected>-- Select Your Sub-county --</option>
+            </select>
+            </div>
+             <div class="form-group">
+            <select id="ward" name="ward" disabled required>
+                <option value="" disabled selected>-- Select Your Ward --</option>
+            </select></div>
+
+  <!-- Ward Input -->
+  
+
+  <!-- Estate Input with Autocomplete -->
+  <div class="form-group">
+    <input type="text" class="form-control" id="estate" name="estate" placeholder="" required>    
+    <label for="estate">Estate / Village</label>
+  </div>
+  </div>
+  
+<div class="step" id="payment-section">
+        <h3><i class="fas fa-money-bill-wave"></i> Payment Section</h3>
+        <div class="form-group">
+          <input type="tel" id="phone" name="phone" placeholder=" " />
+          <input type="hidden" name="mpesa_code" id="mpesa_code">
+          <input type="hidden" name="amount" id="amount">
+          <label for="phone">M-PESA Phone Number</label>
+        </div>
+        <button type="button" id="pay-button" onclick="initiatePayment()">Pay Now</button>
+        <p id="payment-status" style="color: green; margin-top: 10px;"></p>
+      </div>
+
+</div>
+
+    
+
+    <div class="controls">
+      <button type="button" class="prev-btn">Prev</button>
+      <button type="button" class="next-btn">Next</button>
+      <button type="submit" name='submit-btn' class="submit-btn" id="submit-btn" >Submit</button>
+    </div>
+  </form>
+
+  <script>
+  
+  const selectElement = document.getElementById('social_media');
+const selectedSocialMedia = [];
+for (const option of selectElement.options) {
+  if (option.selected) {
+    selectedSocialMedia.push(option.value || option.text); 
+  }
+}
+console.log(selectedSocialMedia); 
+  
+  
+  
+    // id pattern
+
+     document.getElementById('id_no').addEventListener('input', function (e) {
+    this.value = this.value.replace(/\D/g, '').slice(0, 8); // only digits, max 8
+  });
+
+  // next_kin_phone
+ const kinPhone = document.getElementById('next_kin_phone');
+  kinPhone.addEventListener('input', function () {
+    this.value = this.value.replace(/\D/g, '').slice(0, 11);
+  });
+
+  // Calculate the latest date a person can be born to be 18 years or older
+  const today = new Date();
+  const year = today.getFullYear() - 18;
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+  const maxDate = `${year}-${month}-${day}`;
+
+  // Set the max attribute
+  document.getElementById('date_of_birth').setAttribute('max', maxDate);
+</script>
+<script>
+       const countyData = {
+    "Baringo": {
+        "Baringo Central": ["Kabarnet Town Ward", "Sacho Ward", "Tenges Ward", "Kapropita Ward", "Ewalel Chapel Ward"],
+        "Baringo North": ["Kabartonjo Ward", "Bartabwa Ward", "Saimo-Kipsaraman Ward", "Saimo-Soi Ward", "Barwessa Ward"],
+        "Baringo South": ["Marigat Ward", "Ilchamus Ward", "Mochongoi Ward", "Mukutani Ward"],
+        "Eldama Ravine": ["Eldama Ravine Ward", "Lembus Kwen Ward", "Lembus Ward", "Mogotio Ward", "Emining Ward"],
+        "Mogotio": ["Mogotio Ward", "Kisanana Ward", "Sandai Ward", "Emsos Ward"],
+        "Tiaty": ["Kolowa Ward", "Tirioko Ward", "Ripkwo/Churo/Barsombe Ward", "Loyamorok Ward", "Nukinyang Ward", "Silale Ward", "Loiyangalani Ward"]
+    },
+    "Bomet": {
+        "Bomet Central": ["Mutarakwa Ward", "Kipreres Ward", "Ndani Ward", "Singorwet Ward", "Chesoen Ward"],
+        "Bomet East": ["Merigi Ward", "Kembu Ward", "Longisa Ward", "Kipsonoi Ward", "Chemaner Ward"],
+        "Chepalungu": ["Chepalungu Ward", "Kong'asis Ward", "Siongiroi Ward", "Nyangores Ward", "Taboino Ward"],
+        "Konoin": ["Boito Ward", "Embomos Ward", "Kimulot Ward", "Chepchabas Ward", "Tungunoi Ward"],
+        "Sotik": ["Ndanai/Abosi Ward", "Manaret/Kipchoge Ward", "Kaplong Ward", "Mutito/Ainamoi Ward", "Chebilat Ward"]
+    },
+    "Bungoma": {
+        "Bumula": ["Bumula Ward", "Khasoko Ward", "Kimaeti Ward", "South Bukusu Ward", "Siboti Ward"],
+        "Kabuchai": ["Kabuchai Ward", "Chwele/Kabuchai Ward", "Mukuyuni Ward", "Cheptais Ward", "Kibingei Ward"],
+        "Kanduyi": ["Bukembe West Ward", "East Sang'alo Ward", "Kanduyi Ward", "Marakaru/Tuuti Ward", "Milima Ward", "Sinoko Ward", "Tuuti/Marakaru Ward", "Khalaba Ward", "Musikoma Ward", "Township Ward"],
+        "Kimilil": ["Kimilil Ward", "Kamukuywa Ward", "Kimilili Ward", "Maeni Ward"],
+        "Mt. Elgon": ["Chepyuk Ward", "Kaptama Ward", "Kapsokwony Ward", "Koitilil Ward", "Cheptais Ward", "Chemoge Ward"],
+        "Sirisia": ["Sirisia Ward", "Lwandanyi Ward", "Malakisi/South Khasoko Ward"],
+        "Tongaren": ["Tongaren Ward", "Ndalu Ward", "Mbakalo Ward", "Mbakalo/Kamukuywa Ward", "Naitiri/Kabuyefwe Ward"],
+        "Webuye East": ["Marakaru Ward", "Mihuu Ward", "Ndivisi Ward"],
+        "Webuye West": ["Sitikho Ward", "Misikhu Ward", "Bokoli Ward"]
+    },
+    "Busia": {
+        "Budalangi": ["Ruambwa Ward", "Bunyala Central Ward", "Bunyala North Ward", "Bunyala South Ward"],
+        "Butula": ["Marachi East Ward", "Marachi West Ward", "Kingandole Ward", "Mayenje Ward", "Butula Ward", "Nanguba Ward"],
+        "Funyula": ["Funyula Ward", "Namboboto Ward", "Wakhungu Ward", "Obaro Ward"],
+        "Nambale": ["Nambale Township Ward", "Burumba Ward", "Bukhayo North/Walatsi Ward", "Bukhayo Central Ward", "Mwira Ward"],
+        "Teso North": ["Ang'urai East Ward", "Ang'urai South Ward", "Ang'urai North Ward", "" /* Add other wards */],
+        "Teso South": ["Amukura East Ward", "Amukura West Ward", "Chakol South Ward", "Chakol North Ward", "Aloete Ward"]
+    },
+    "Elgeyo-Marakwet": {
+        "Keiyo North": ["Iten/Tambach Ward", "Kamariny Ward", "Samweno Ward", "Chepkorio Ward"],
+        "Keiyo South": ["Metkei Ward", "Kaptarakwa Ward", "Soy South Ward", "Kabiemit Ward"],
+        "Marakwet East": ["Embobut/Embulot Ward", "Sengwer Ward", "Kapyego Ward", "Sambirir Ward"],
+        "Marakwet West": ["Kapsowar Ward", "Arror Ward", "Cherang'any/Chebororwa Ward", "Lelan Ward", "Moiben/Kuserwo Ward"]
+    },
+    "Embu": {
+        "Manyatta": ["Nginda Ward", "Mbeti North Ward", "Mbeti South Ward", "Kithimu Ward", "Manyatta Ward"],
+        "Mbeere North": ["Evurore Ward", "Nthawa Ward", "Muminji Ward", "Gitare Ward", "Mavuria Ward"],
+        "Mbeere South": ["Mwea Ward", "Makima Ward", "Mbeti South Ward", "Kiritiri Ward", "Kiambere Ward"],
+        "Runyenjes": ["Runyenjes Central Ward", "Gaturi South Ward", "Kagaari South Ward", "Kagaari North Ward"]
+    },
+    "Garissa": {
+        "Dadaab": ["Dadaab Ward", "Liboi Ward", "Damajale Ward", "Abakaile Ward"],
+        "Fafi": ["Bura Ward", "Dekaharia Ward", "Jarajila Ward", "Fafi Ward", "Nanighi Ward"],
+        "Garissa": ["Township Ward", "Biashara Ward", "Galbet Ward", "Waberi Ward"],
+        "Hulugho": ["Hulugho Ward", "Sangailu Ward", "Ijara Ward"],
+        "Ijara": ["Ijara Ward", "Sangailu Ward", "Korakora Ward", "Hulugho Ward"],
+        "Lagdera": ["Benane Ward", "Modogashe Ward", "Sabena Ward", "Lagdera Ward"]
+    },
+    "Homa Bay": {
+        "Homabay Town": ["Homa Bay Town Central Ward", "Homa Bay Town East Ward", "Homa Bay Town West Ward"],
+        "Kabondo Kasipul": ["Kabondo East Ward", "Kabondo West Ward", "Kodera Ward", "Kasipul West Ward"],
+        "Karachwonyo": ["North Karachwonyo Ward", "Central Karachwonyo Ward", "Kendu Bay Town Ward", "Kanyadoto Ward", "Kibiri Ward",
+  "Wang'chieng' Ward"],
+        "Kasipul": ["East Kasipul Ward", "West Kasipul Ward", "South Kasipul Ward", "Wang'chieng Ward"],
+        "Mbita": ["Mfangano Island Ward", "Rusinga Island Ward", "Gembe Ward", "Mbita Ward", "Gwassi North Ward", "Gwassi South Ward"],
+        "Ndhiwa": ["Kanyikela Ward", "Kanyamwa Kosewe Ward", "Kwabwai Ward", "Ndhiwa Ward", "Kanyamwa Kologi Ward"],
+        "Rangwe": ["Rangwe Ward", "Kanyaluo Ward", "Gem Ward", "Kamuga Ward"],
+        "Suba": ["Gwassi North Ward", "Gwassi South Ward", "Ruma Kanyamwa Ward", "Lambwe Ward", "" /* Add other wards */]
+    },
+    "Isiolo": {
+        "Isiolo": ["Bulapesa Ward", "Chari Ward", "Wabera Ward", "Burat Ward"],
+        "Garbatulla": ["Garbatulla Ward", "Kinna Ward", "Modogashe Ward"],
+        "Merti": ["Cherab Ward", "Gafarsa Ward", "Oldonyiro Ward"]
+    },
+    "Kajiado": {
+        "Isinya": ["Isinya Ward", "Kaputiei North Ward", "Oloosirkon/Sholinke Ward", "Lenkek Ward"],
+        "Kajiado Central": ["Kajiado Township Ward", "Imaroro Ward", "Poka/Mashuuru Ward", "Dalalekutuk Ward"],
+        "Kajiado North": ["Ngong Ward", "Olkeri Ward", "Nkaimurunya Ward", "Oloolua Ward", "Kajiado West Ward"],
+        "Loitokitok": ["Rombo Ward", "Kimana Ward", "Illasit Ward", "Loitokitok Ward", "Entonet/Lenkisin Ward"],
+        "Mashuuru": ["Mashuuru Ward", "Ildamat Ward", "Meto Ward", "Kitengela Ward"]
+    },
+    "Kakamega": {
+        "Butere": ["Marama North Ward", "Marama West Ward", "Marama Central Ward", "Marama South Ward"],
+        "Ikolomani": ["Shisiru Ward", "Idakho North Ward", "Idakho South Ward", "Lirhanda Ward"],
+        "Khwisero": ["Khwisero Ward", "Luanda/Luandeti Ward", "Koyonzo Ward", "Chegulo Ward"],
+        "Likuyani": ["Likuyani Ward", "Likuyani/Matunda Ward", "Sikho Ward", "Soy Ward"],
+        "Lugari": ["Lugari Ward", "Lumakanda Ward", "Likuyani Ward", "Chekalini Ward", "Likuyani/Matunda Ward"],
+        "Lurambi": ["Lurambi Ward", "Butsotso East Ward", "Butsotso Central Ward", "Butsotso West Ward", "Murhanda Ward", "" /* Add other wards */],
+        "Malava": ["East Kabras Ward", "West Kabras Ward", "North Kabras Ward", "South Kabras Ward", "Chemuche Ward", "" /* Add other wards */],
+        "Matungu": ["Koyonzo Ward", "Khalaba Ward", "Eswani Ward", "Kholera Ward"],
+        "Mumias East": ["East Wanga Ward", "Malia Ward", "Echesa Ward"],
+        "Mumias West": ["Mumias Central Ward", "Mumias North Ward", "Mumias South Ward", "Musanda Ward"],
+        "Navakholo": ["Navakholo Ward", "Bunyala East Ward", "Bunyala North Ward", "Bunyala West Ward"],
+        "Shinyalu": ["Shinyalu Ward", "Isukha East Ward", "Isukha North Ward", "Isukha South Ward", "Ilesi Ward"]
+    },
+    "Kericho": {
+        "Ainamoi": ["Ainamoi Ward", "Kapsoit Ward", "Kipchebor Ward", "Tebesonik Ward", "Chemogos Ward"],
+        "Belgut": ["Belgut Ward", "Kabianga Ward", "Waldai Ward", "Chepkembeli Ward"],
+        "Bureti": ["Litein Ward", "Kimulot Ward", "Kipreres Ward", "Kamelil Ward", "Tebesonik Ward", "Roret Ward", "Cheboin Ward"],
+        "Kipkelion East": ["Londiani Ward", "Kedowa/Saniak Ward", "Kipkelion Ward", "Tendwet Ward"],
+        "Kipkelion West": ["Chilchila Ward", "Kunyak Ward", "Kiptere Ward", "Chepseon Ward"],
+        "Soin Sigowet": ["Soin Ward", "Sigowet Ward", "Kaplelartet Ward", "Soliat Ward"]
+    },
+    "Kiambu": {
+        "Gatundu North": ["Mang'u Ward", "Chania Ward", "Gatukuyu Ward", "Ndarugo Ward"],
+        "Gatundu South": ["Kiamwangi Ward", "Kiamworia Ward", "Ituru Ward", "Muiru Ward"],
+        "Githunguri": ["Githunguri Ward", "Ngewa Ward", "Komothai Ward", "Githiga Ward",
+  "Ikinu Ward"],
+        "Juja": ["Juja Ward", "Kalimoni Ward", "Witeithie Ward", "Murera Ward"],
+        "Kabete": ["Gitaru Ward", "Kabete Ward", "Kinoo Ward", "Uthiru/Muguga Ward", "Ngecha Tigoni Ward"],
+        "Kiambaa": ["Karuri Ward", "Ndenderu Ward", "Muchatha Ward", "Cianda Ward", "Kihara Ward"],
+        "Kiambu Town": ["Township Ward", "Ngecha Ward", "Ndumberi Ward", "Ting'ang'a Ward"],
+        "Kikuyu": ["Kikuyu Ward", "Karai Ward", "Nachu Ward", "Sigona Ward", "Limuru East Ward"],
+        "Limuru": ["Limuru East Ward", "Limuru Central Ward", "Ngecha Ward", "Biashara Ward"],
+        "Ruiru": ["Biashara Ward", "Kahawa Sukari Ward", "Kahawa Wendani Ward", "Githurai Ward", "Gitothua Ward", "Gatongora Ward", "Ruiru Central Ward"],
+        "Thika Town": ["Township Ward", "Parklands Ward", "Kamenu Ward", "Hospital Ward", "Ngewa Ward", "Witeithie Ward"],
+        "Lari": ["Lari Ward", "Kijabe Ward", "Kamburu Ward", "Nyanduma Ward", "Kijabe Ward"]
+    },
+    "Kilifi": {
+        "Ganze": ["Bamba Ward", "Ganze Ward", "Jaribuni Ward", "Mwahera Ward"],
+        "Kaloleni": ["Kaloleni Ward", "Mariakani Ward", "Mavueni Ward", "Kayafungo Ward"],
+        "Kilifi North": ["Tezo Ward", "Matsangoni Ward", "Kibarani Ward", "Watamu Ward", "Dabaso Ward"],
+        "Kilifi South": ["Shimo La Tewa Ward", "Chasimba Ward", "Mtepeni Ward", "Junju Ward"],
+        "Magarini": ["Gongoni Ward", "Marafa Ward", "Magarini Ward", "Sabaki Ward", "Garashi Ward"],
+        "Malindi": ["Shella Ward", "Malindi Town Ward", "Ganda Ward", "Kakuyuni Ward", "Jilore Ward", "Langobaya Ward"],
+        "Rabai": ["Rabai/Mwakirunge Ward", "Kambe/Ribe Ward", "Jibana Ward"]
+    },
+    "Kirinyaga": {
+        "Kirinyaga Central": ["Kanyekini Ward", "Kerugoya/Kutus Ward", "Mutira Ward", "Nyangati Ward"],
+        "Kirinyaga East": ["Gichugu Ward", "Kabare Ward", "Kanyenya-ini Ward", "Ngariama Ward"],
+        "Kirinyaga West": ["Mwea Ward", "Thiba Ward", "Wamumu Ward", "Wang'uru Ward"],
+        "Mwea East": ["Kangai Ward", "Mwea Ward", "Wang'uru Ward", "Thiba Ward"],
+        "Mwea West": ["Mutithi Ward", "Murinduko Ward", "Nyangati Ward", "Thigirigi Ward"]
+    },
+    "Kisii": {
+        "Bomachoge Borabu": ["Bobaracho Ward", "Bomachoge Ward", "Kiabonyoru Ward", "Misesi Ward"],
+        "Bomachoge Chache": ["Bogetenga Ward", "Bokeira Ward", "Tendere Ward", "Kenyenya Ward"],
+        "Bobasi": ["Bobasi Ward", "Sameta Ward", "Basii Ward", "Nyacheki Ward", "" /* Add other wards */],
+        "Bokimira": ["Bokimira Ward", "Gesicho Ward", "Masaba South Ward"],
+        "Etago": ["Etago Ward", "Kegogi Ward", "Nyacheki Ward"],
+        "Kitutu Chache North": ["Mosocho Ward", "Marani Ward", "Mwamonari Ward", "Kitutu Central Ward"],
+        "Kitutu Chache South": ["Kisii Central Ward", "Nyansira Ward", "Nyamataro Ward", "Jogoo Ward", "Sensi Ward"],
+        "Nyaribari Chache": ["Bobaracho Ward", "Kiogoro Ward", "Mosocho Ward", "Central Ward", "" /* Add other wards */],
+        "Nyaribari Masaba": ["Kiogoro Ward", "Mwarembo Ward", "Gesusu Ward", "Ibacho Ward"],
+        "Sameta": ["Sameta Ward", "Ichuni Ward", "Nyakoe Ward"],
+        "South Mugirango": ["Bogetenga Ward", "Kenyenya Ward", "Moticho Ward", "Omobera Ward", "Boikanga Ward"]
+    },
+    "Kisumu": {
+        "Kisumu Central": ["Kondele Ward", "Kaloleni Ward", "Shanzu Ward", "Nyalenda 'A' Ward", "Nyalenda 'B' Ward", "Railways Ward"],
+        "Kisumu East": ["Kolwa East Ward", "Kolwa Central Ward", "Manyatta B Ward","Nyalenda A Ward",
+  "Railways Ward","Kabonyo/Kajulu Ward"],
+        "Kisumu West": ["Kisumu North Ward", "South West Kisumu Ward", "Central Kisumu Ward","North West Kisumu Ward",
+  "West Kisumu Ward"],
+        "Muhoroni": ["Chemelil/Tamu Ward", "Koru Ward", "Miwani Ward", "Ombeyi Ward"],
+        "Nyakach": ["South Nyakach Ward", "Central Nyakach Ward", "North Nyakach Ward", "West Nyakach Ward", "East Nyakach Ward"],
+        "Nyando": ["Awasi/Onjiko Ward", "Ahero Ward", "Kano/Kolwa Ward", "Kabonyo/Kajulu Ward"],
+        "Seme": ["East Seme Ward", "West Seme Ward", "North Seme Ward", "Central Seme Ward"]
+    },
+    "Kitui": {
+        "Ikutha": ["Ikutha Ward", "Kanziko Ward", "Mutomo/Kibwezi Ward", "" /* Add other wards */],
+        "Katulani": ["Katulani Ward", "Kisasi Ward", "Kanyangi Ward", "Kyangwithya East Ward"],
+        "Kisasi": ["Kisasi Ward", "Kanyangi Ward", "Kyangwithya West Ward", "Miambani Ward"],
+        "Kitui Central": ["Kitui Central Ward", "Mulango Ward", "Kyangwithya East Ward", "Kyangwithya West Ward"],
+        "Kitui East": ["Mutito/Mbitini Ward", "Kitui East Ward", "Endau/Malalani Ward", "Kanyangi Ward", "Voo/Kyamu Ward"],
+        "Kitui Rural": ["Mutitu Ward", "Kitui South Ward", "Kanyangi Ward", "" /* Add other wards */],
+        "Kitui South": ["Mutomo/Kibwezi Ward", "Mutha Ward", "Ikanga/Kyatune Ward", "Kyuu Ward"],
+        "Kitui West": ["Mutongoni Ward", "Wamunyu Ward", "Kauwi Ward", "Kyangwithya West Ward"],
+        "Lower Yatta": ["Yatta/Kwa Vonza Ward", "Kanziku Ward", "" /* Add other wards */],
+        "Matiyani": ["Matiyani Ward", "Kyangwithya West Ward", "Museve Ward"],
+        "Migwani": ["Migwani Ward", "Ngaaie Ward", "Thitani Ward", "Kamuloko Ward"],
+        "Mutitu": ["Mutitu Ward", "Kwa Mutonga/Kithumula Ward", "Waita Ward"],
+        "Mutomo": ["Mutomo/Kibwezi Ward", "Mutha Ward", "Ikanga/Kyatune Ward", "Kyuu Ward"],
+        "Muumonikyusu": ["Muumonikyusu Ward", "Nzambani Ward", "Waita Ward"],
+        "Mwingi Central": ["Kyome/Thaana Ward", "Mwingi Central Ward", "Nguni Ward", "Nuuni Ward"],
+        "Mwingi North": ["Tseikuru Ward", "Mwingi North Ward", "Kyuso Ward", "" /* Add other wards */],
+        "Mwingi West": ["Migwani Ward", "Thitani Ward", "Kalyambeu Ward", "Ngaie Ward"],
+        "Nzambani": ["Nzambani Ward", "Kitui East Ward", "Mui Ward"],
+        "Tseikuru": ["Tseikuru Ward", "Mwingi North Ward", "Ngomeni Ward"]
+    },
+    "Kwale": {
+        "Kinango": ["Mwavumbo Ward", "Kinango Ward", "Puma Ward", "Ndavaya Ward"],
+        "Lungalunga": ["Pongwe/Kikoneni Ward", "Mwereni Ward", "Dzombo Ward", "Lungalunga Ward"],
+        "Msambweni": ["Msambweni Ward", "Gombato/Bongwe Ward", "Ramisi Ward", "Kinondo Ward"],
+        "Matuga": ["Tiwi Ward", "Waa/Ng'ombeni Ward", "Kubo South Ward", "Kubo North Ward"]
+    },
+    "Laikipia": {
+        "Laikipia Central": ["Nanyuki Ward", "Thingithu Ward", "Umande Ward", "Marmanet Ward"],
+        "Laikipia East": ["Ngobit Ward", "Tigithi Ward", "Mukogodo East Ward", "Mukogodo West Ward"],
+        "Laikipia North": ["Sosian Ward", "Sebi Ward", "Ilmotiok Ward", "Segera Ward"],
+        "Laikipia West": ["Rumuruti Ward", "Ol-Moran Ward", "Maji Mazuri Ward", "Salama Ward"],
+        "Nyahururu": ["Nyahururu Ward", "Ol Joro Orok Ward", "Rumuruti Ward"]
+    },
+    "Lamu": {
+        "Lamu East": ["Faza Ward", "Pate Ward", "Kizingitini Ward"],
+        "Lamu West": ["Shella Ward", "Mkomani Ward", "Hindi Ward", "Witu Ward", "Bahari Ward"]
+    },
+    "Machakos": {
+        "Kathiani": ["Kathiani Ward", "Lower Kaewa/Mavoko Ward", "Kaewa/Mavoko Ward", "" /* Add other wards */],
+        "Machakos Town": ["Kalama Ward", "Mumbuni North Ward", "Mumbuni South Ward", "Machakos Central Ward", "Mutituni Ward", "Kola Ward"],
+        "Masinga": ["Masinga Central Ward", "Masinga North Ward", "Kithyoko Ward", "Kivaa Ward"],
+        "Matungulu": ["Matungulu North Ward", "Matungulu East Ward", "Matungulu West Ward", "Tala Ward"],
+        "Mavoko": ["Athi River Ward", "Kinanie Ward", "Syokimau/Mlolongo Ward", "Mlolongo Ward", "" /* Add other wards */],
+        "Mwala": ["Mwala Ward", "Wamunyu Ward", "Makutano/Mitaboni Ward", "Masii Ward"],
+        "Yatta": ["Yatta/Kithimani Ward", "Katangi Ward", "Nolwe Ward", "Kivandini Ward"]
+    },
+    "Makueni": {
+        "Kaiti": ["Ukia Ward", "Kee Ward", "Ivingoni/Nzambani Ward", "" /* Add other wards */],
+        "Kibwezi East": ["Makindu Ward", "Kibwezi West Ward", "Nguumo Ward", "" /* Add other wards */],
+        "Kibwezi West": ["Chyulu Ward", "Nzaui/Kilili/Kalamba Ward", "Masongaleni Ward", "" /* Add other wards */],
+        "Kilome": ["Ukia Ward", "Kiambu Ward", "Ivingoni/Nzambani Ward"],
+        "Makueni": ["Wote Ward", "Wamunyu Ward", "Kako/Waita Ward", "" /* Add other wards */],
+        "Mbooni": ["Mbooni Ward", "Tulimani Ward", "Kisau/Kiteta Ward", "Kithungo/Kitundu Ward"]
+    },
+    "Mandera": {
+        "Banissa": ["Banissa Ward", "Guba Ward", "Sarman Ward", "Derkhale Ward"],
+        "Lafey": ["Lafey Ward", "Fino Ward", "Warankara Ward", "Arohle Ward"],
+        "Mandera East": ["Mandera North Ward", "Mandera West Ward", "Mandera East Ward", "Township Ward", "" /* Add other wards */],
+        "Mandera North": ["Rhamu Ward", "Ashabito Ward", "Guticha Ward", "Garbitulla Ward"],
+        "Mandera South": ["Shimbir Fatuma Ward", "Lafey Ward", "Elwak South Ward", "" /* Add other wards */],
+        "Mandera West": ["Takaba North Ward", "Takaba South Ward", "Dandu Ward", "" /* Add other wards */]
+    },
+    "Marsabit": {
+        "Laisamis": ["Laisamis Ward", "Kargi/Korr/Ngurnit Ward", "Logologo Ward", "" /* Add other wards */],
+        "Moyale": ["Moyale Town Ward", "Golbo Ward", "Butiye Ward", "Sololo Ward"],
+        "North Horr": ["North Horr Ward", "Maikona Ward", "Turbi Ward", "Dukana Ward"],
+        "Saku": ["Saku Ward", "Sagante/Jaldesa Ward", "Karare Ward"]
+    },
+    "Meru": {
+        "Buuri": ["Buuri West Ward", "Buuri East Ward", "Kiguchwa Ward", "Ruiri/Rwarera Ward", "Ntima East Ward", "" /* Add other wards */],
+        "Igembe Central": ["Igembe Central Ward", "Akachiu Ward", "Kiegoi/Antuambui Ward", "Athiru Gaiti Ward"],
+        "Igembe North": ["Igembe North Ward", "Laare Ward", "Amwathi Ward", "Antuambui Ward"],
+        "Igembe South": ["Maua Ward", "Kiegoi/Antuambui Ward", "Athiru Gaiti Ward", "Akachiu Ward"],
+        "Imenti Central": ["Abogeta East Ward", "Abogeta West Ward", "Kigumo Ward", "Mitunguu Ward"],
+        "Imenti North": ["Municipality Ward", "Imenti North Ward", "Abothuguchi Central Ward", "Abothuguchi West Ward"],
+        "Imenti South": ["Imenti South Ward", "Nkuene Ward", "Mwangathia Ward", "Kanyakine Ward", "" /* Add other wards */],
+        "Tigania East": ["Kiguchwa Ward", "Mikinduri Ward", "Muthara Ward", "Karama Ward"],
+        "Tigania West": ["Athwana Ward", "Akithi Ward", "Kianjai Ward", "Mbeu Ward"]
+    },
+    "Migori": {
+        "Awendo": ["Awendo Ward", "North Sakwa Ward", "South Sakwa Ward", "God Jope Ward"],
+        "Kuria East": ["Nyabasi East Ward", "Nyabasi West Ward", "Ntimaru East Ward", "Ntimaru West Ward"],
+        "Kuria West": ["Masaba Ward", "Tagare Ward", "Makerero Ward", "Gokeharaka/Getenga Ward"],
+        "Nyatike": ["Nyatike East Ward", "Nyatike West Ward", "Kanyamkago Ward", "" /* Add other wards */],
+        "Rongo": ["Rongo Ward", "North Kamagambo Ward", "South Kamagambo Ward", "East Kamagambo Ward"],
+        "Suna East": ["Kakrao Ward", "East Suna Ward", "Komolo Rume Ward", "" /* Add other wards */],
+        "Suna West": ["Wasweta II Ward", "Ragana/Ombo Ward", "Kaler Ward", "" /* Add other wards */],
+        "Uriri": ["Uriri Ward", "North Kanyamkago Ward", "South Kanyamkago Ward", "Central Kanyamkago Ward"]
+    },
+    "Mombasa": {
+        "Changamwe": ["Chaani Ward", "Kipevu Ward", "Miritini Ward", "Port Reitz Ward", "Changamwe Ward"],
+        "Jomvu": ["Jomvu Kuu Ward", "Mikindani Ward", "Miritini Ward"],
+        "Kisauni": ["Bamburi Ward", "Mtopanga Ward", "Mwandoni Ward", "Shanzu Ward", "Kadongo Ward", "" /* Add other wards */],
+        "Likoni": ["Bofu Ward", "Likoni Ward", "Mtongwe Ward", "Shika Adabu Ward", "Timbwani Ward"],
+        "Mvita": ["Majengo Ward", "Mji Wa Kale/Old Town Ward", "Shimanzi/Ganjoni Ward", "Tononoka Ward", "Mvita Ward"],
+        "Nyali": ["Frere Town Ward", "Kadzonzo Ward", "Kisauni Ward", "Kongowea Ward", "Nyali Ward"]
+    },
+    "Murang'a": {
+        "Gatanga": ["Gatanga Ward", "Gatara Ward", "Kibugi Ward", "Mangu Ward", "Mugumo-ini Ward"],
+        "Kandara": ["Kandara Ward", "Githunguri Ward", "Ng'araria Ward", "Kihumbu-ini Ward", "Muruka Ward"],
+        "Kangema": ["Kanyenya-ini Ward", "Muguru Ward", "Rwathia Ward"],
+        "Kigumo": ["Kigumo Ward", "Kahumbu Ward", "Kangari Ward", "Kanyenya-ini Ward", "" /* Add other wards */],
+        "Kiharu": ["Kiharu Ward", "Mugoiri Ward", "Wangu Ward", "Kahuro Ward", "Munyoro Ward"],
+        "Maragua": ["Maragua Ridge Ward", "Mikalai Ward", "Ichagaki Ward", "Kambiti Ward"],
+        "Mathioya": ["Gatara Ward", "Kiriti Ward", "Kiru Ward", "Njumbi Ward"],
+        "Murang'a South": ["Makuyu Ward", "Kambiti Ward", "Kandara Ward", "" /* Add other wards */]
+    },
+    "Nairobi": {
+        "Dagoretti North": ["Kileleshwa Ward", "Kawangware Ward", "Kilimani Ward", "Lavington Ward", "Gatina Ward"],
+        "Dagoretti South": ["Mutuini Ward", "Ngand'o Ward", "Waithaka Ward", "Riruta Ward"],
+        "Embakasi Central": ["Kariobangi South Ward", "Dandora Phase I Ward", "Dandora Phase II Ward", "Dandora Phase III Ward", "Dandora Phase IV Ward"],
+        "Embakasi East": ["Embakasi Ward", "Lower Savannah Ward", "Upper Savannah Ward", "Umoja I Ward", "Umoja II Ward"],
+        "Embakasi North": ["Kariobangi North Ward", "Dandora Area I Ward", "Dandora Area II Ward", "Dandora Area III Ward", "Dandora Area IV Ward"],
+        "Embakasi South": ["Imara Daima Ward", "Kware Ward", "Mihango Ward", "Pipeline Ward"],
+        "Embakasi West": ["Umoja Ward", "Mihango Ward", "Kware Ward", "Embakasi West Ward"],
+        "Kamukunji": ["Eastleigh North Ward", "Eastleigh South Ward", "Pumwani Ward", "Airbase Ward", "Biashara Ward"],
+        "Kasarani": ["Kasarani Ward", "Mwiki Ward", "Clay City Ward", "Roysambu Ward", "Ruaraka Ward"],
+        "Kibra": ["Laini Saba Ward", "Lindi Ward", "Makina Ward", "Sarang'ombe Ward", "Woodley/Kenyatta Golf Course Ward"],
+        "Lang'ata": ["Karen Ward", "Mugumo-ini Ward", "South C Ward", "Nairobi West Ward", "Lang'ata Ward"],
+        "Makadara": ["Makongeni Ward", "Kaloleni/Mbotela Ward", "Hamza Ward", "Maringo/Hamza Ward", "Viwandani Ward"],
+        "Mathare": ["Huruma Ward", "Mabatini Ward", "Mathare North Ward", "Ngei Ward", "" /* Add other wards */],
+        "Roysambu": ["Roysambu Ward", "Githurai Ward", "Kahawa West Ward", "Kahawa North Ward", "Zimmerman Ward"],
+        "Ruaraka": ["Baba Dogo Ward", "Korogocho Ward", "Mathare North Ward", "Dandora Ward", "" /* Add other wards */],
+        "Starehe": ["Central Ward", "Ngara Ward", "Pangani Ward", "Landimawe Ward", "Ziwani/Kariokor Ward"],
+        "Westlands": ["Kitisuru Ward", "Parklands/Highridge Ward", "Karura Ward", "Kangemi Ward", "Mountain View Ward", "Waiyaki Way Ward"]
+    },
+    "Nakuru": {
+        "Bahati": ["Bahati Ward", "Dundori Ward", "Kabatini Ward", "Kiamaina Ward"],
+        "Gilgil": ["Gilgil Ward", "Elementaita Ward", "Malewa West Ward", "Murindat Ward"],
+        "Kuresoi North": ["Kipkelion Ward", "Kuresoi North Ward", "Amalo Ward", "Keringet Ward"],
+        "Kuresoi South": ["Keringet Ward", "Amalo Ward", "Tinet Ward", "Kuresoi South Ward"],
+        "Naivasha": ["Biashara Ward", "Hells Gate Ward", "Lakeview Ward", "Maimahiu Ward", "Naivasha East Ward", "Naivasha West Ward", "Viwandani Ward"],
+        "Nakuru Town East": ["Biashara Ward", "Flamingo Ward", "Kivumbini Ward", "Lake View Ward", "Shabab Ward"],
+        "Nakuru Town West": ["Barut Ward", "London Ward", "Shauri Yako Ward", "Kapkures Ward"],
+        "Njoro": ["Njoro Ward", "Mauche Ward", "Lare Ward", "Kihingo Ward"],
+        "Rongai": ["Rongai Ward", "Solai Ward", "Visoi Ward", "Kampi Ya Moto Ward"],
+        "Subukia": ["Subukia Ward", "Waseges Ward", "Kabazi Ward"]
+    },
+    "Nandi": {
+        "Aldai": ["Kaptumo/Kaboi Ward", "Koyochim Ward", "Terik Ward", "Ndonyiro Ward"],
+        "Chesumei": ["Chemundu/Sangalo Ward", "Kapsabet Ward", "Kosirai Ward", "Kiptuya Ward"],
+        "Emgwen": ["Kapsabet/Kamwega Ward", "Kilibwoni Ward", "Kapkanga Ward", "Kigumo Ward"],
+        "Mosop": ["Kurgung/Surungai Ward", "Chemundu/Sangalo Ward", "Kabiyet Ward", "Kurgung Ward", "Sarupio Ward"],
+        "Nandi Hills": ["Nandi Hills Ward", "Chepkumia Ward", "Kapsimotwo Ward", "Tindiret Ward"],
+        "Tindiret": ["Tindiret Ward", "Meteitei Ward", "Chemase Ward", "Kapsimotwo Ward"]
+    },
+    "Narok": {
+        "Kilgoris": ["Kilgoris Central Ward", "Keyian Ward", "Angata Barikoi Ward", "Shankoe Ward"],
+        "Narok East": ["Ololulunga Ward", "Maji Moto Ward", "Naikarra Ward", "" /* Add other wards */],
+        "Narok North": ["Narok Town Ward", "Olopito Ward", "Nkareta Ward", "Olorropil Ward"],
+        "Narok South": ["Loita Ward", "Maji Moto Ward", "Sogoo Ward", "Melelo Ward"],
+        "Narok West": ["Loita Ward", "Siana Ward", "Lemek Ward", "Nkareta Ward", "Olesholey Ward"],
+        "Emurua Dikirr": ["Ilkerin Ward", "Ololulunga Ward", "Angata Barikoi Ward"]
+    },
+    "Nyamira": {
+        "Borabu": ["Rangenyo Ward", "Nyansiongo Ward", "Borabu Ward", "Manga Ward"],
+        "Masaba North": ["Masaba North Ward", "Kegogi Ward", "Bokeira Ward", "Mugirango West Ward"],
+        " Missing Nyamira North " : ["Township Ward", "Bogichora Ward", "Bokeira Ward", "Nyankuru Ward"], // Placeholder
+        "Nyamira South": ["Bokimonge Ward", "Bonyamatuta Ward", "Kebirigo Ward", "Nyamira Township Ward"],
+        "Rigoma": ["Rigoma Ward", "Gesiaga Ward", "Nyabite Ward", "Bosamaro Ward"],
+        "West Mugirango": ["Nyabite Ward", "Getare Ward", "Rigoma Ward", "Ekerenyo Ward"]
+    },
+    "Nyandarua": {
+        "Kinangop": ["Githabai Ward", "Kinangop Central Ward", "Kinangop North Ward", "Kinangop South Ward", "Njabini/Kiburu Ward"],
+        "Kipipiri": ["Geta Ward", "Kipipiri Ward", "Wanjohi Ward", "Githioro Ward"],
+        "Ndaragwa": ["Ndaragwa Central Ward", "Leshau/Pondo Ward", "Shamata Ward", "Dundori Ward"],
+        "Ol Kalou": ["Ol Kalou Town Ward", "Githunguri Ward", "Karau Ward", "Rurii Ward", "Kaimbaga Ward"],
+        "Ol Joro Orok": ["Ol Joro Orok Ward", "Gatimu Ward", "Murungaru Ward", "Passenga Ward"]
+    },
+    "Nyeri": {
+        "Kieni East": ["Mweiga Ward", "Naromoru/Kiamariga Ward", "Mwiyogo/Endarasha Ward", "Amboni/Kanyurira Ward"],
+        "Kieni West": ["Mukurweini Central Ward", "Mukurweini West Ward", "Gikondi Ward", "Muhito Ward"],
+        "Mathira East": ["Kirimukuyu Ward", "Ruguru Ward", "Mutira Ward", "Konyu Ward"],
+        "Mathira West": ["Magutu Ward", "Mukurweini Central Ward", "Ngorano Ward", "" /* Add other wards */],
+        "Mukurweini": ["Gikondi Ward", "Muhito Ward", "Mukurweini Central Ward", "Mukurweini West Ward"],
+        "Nyeri Town": ["Rware Ward", "Kamakwa/Mukaro Ward", "Gatitu/Muruguru Ward", "" /* Add other wards */],
+        "Othaya": ["Mahiga Ward", "Iyego Ward", "Chinga Ward", "Othaya Ward"],
+        "Tetu": ["Aguthi/Gaaki Ward", "Kiganjo/Mathira Ward", "Karundu/Mugunda Ward", "Muthuaini Ward"]
+    },
+    "Samburu": {
+        "Samburu East": ["Wamba East Ward", "Wamba West Ward", "Wamba North Ward", "Lodokejek Ward"],
+        "Samburu North": ["Baragoi Ward", "Nachola Ward", "Ndoto Ward", "Nyiro Ward"],
+        "Samburu West": ["Lodokejek Ward", "Maralal Old Town Ward", "Baawa Ward", "Loosuk Ward", "Poron Ward"]
+    },
+    "Siaya": {
+        "Alego Usonga": ["Siaya Township Ward", "Alego Usonga Ward", "Usonga Ward", "Karemo Ward", "" /* Add other wards */],
+        "Bondo": ["Bondo Town Ward", "Usigu Ward", "Nyatike Ward", "South Sakwa Ward"],
+        "Gem": ["North Gem Ward", "Central Gem Ward", "South Gem Ward", "Yala Township Ward"],
+        "Rarieda": ["East Asembo Ward", "West Asembo Ward", "Asembo Central Ward", "South East Rarieda Ward"],
+        "Ugenya": ["East Ugenya Ward", "North Ugenya Ward", "West Ugenya Ward", "Ugenya Ward"],
+        "Ugunja": ["Ugunja Ward", "Sidindi Ward", "Ambira/Murambo/Ukhoh Ward"]
+    },
+    "Taita-Taveta": {
+        "Mwatate": ["Mwatate Ward", "Bura Ward", "Wumingu/Bura Ward", "Ronge Ward"],
+        "Taveta": ["Taveta Ward", "Mata Ward", "Chala Ward", "Mboghoni Ward"],
+        "Voi": ["Voi Ward", "Sagalla Ward", "Mbololo Ward", "Kasigau Ward", "Marungu Ward"],
+        "Wundanyi": ["Wundanyi/Mbale Ward", "Wumingu/Kishushe Ward", "Werugha Ward", "Mgange/Mwanda Ward"]
+    },
+    "Tana River": {
+        "Bura": ["Chewele/Mikinduni Ward", "Bangale Ward", "Sala Ward", "Madogo Ward"],
+        "Galole": ["Garsen South Ward", "Garsen Central Ward", "Chewele Ward", "Mikinduni Ward"],
+        "Garsen": ["Garsen Central Ward", "Garsen South Ward", "Kipini East Ward", "Kipini West Ward"]
+    },
+    "Tharaka-Nithi": {
+        "Chuka Igambang'ombe": ["Karingani Ward", "Magumoni Ward", "Muthambi Ward", "Chuka Ward"],
+        "Maara": ["Chogoria Ward", "Mitheru Ward", "Mwimbi Ward", "Gatunga Ward"],
+        "Tharaka Nithi": ["Tharaka Ward", "Mutino Ward", "Chiakariga Ward", "Marimanti Ward"]
+    },
+    "Trans-Nzoia": {
+        "Cherangany": ["Motosiet Ward", "Sinyerere Ward", "Kaplamai Ward", "Sitatunga Ward"],
+        "Endebess": ["Endebess Ward", "Kwanza Ward", "Kinyoro Ward", "Saboti Ward"],
+        "Kiminini": ["Waitaluk Ward", "Kiminini Ward", "Saboti Ward", "" /* Add other wards */],
+        "Kwanza": ["Kwanza Ward", "Kiminini Ward", "Endebess Ward", "Chepsiro/Kiptoror Ward"],
+        "Saboti": ["Saboti Ward", "Matisi Ward", "Tuwan Ward", "Kinyoro Ward"]
+    },
+    "Turkana": {
+        "Turkana Central": ["Lodwar Town Ward", "Loima Ward", "Turkwel Ward", "Kerio Delta Ward"],
+        "Turkana East": ["Kapedo/Napei Ward", "Kapedo/Napei Ward", "Lokori/Kochodin Ward", "" /* Add other wards */],
+        "Turkana North": ["Lokitaung Ward", "Lokichoggio Ward", "Kibish Ward", "" /* Add other wards */],
+        "Turkana South": ["Kalokol Ward", "Katilu Ward", "Lokichar Ward", "" /* Add other wards */],
+        "Turkana West": ["Turkana West Ward", "Loima Ward", "Kakuma Ward", "Lopur Ward"],
+        "Loima": ["Loima Ward", "Kotaruk/Lobei Ward", "Turkwel Ward"]
+    },
+    "Uasin Gishu": {
+        "Ainabkoi": ["Ainabkoi/Olare Ward", "Kaptagat Ward", "Kapsoya Ward", "Plateau Ward"],
+        "Kapseret": ["Kapseret/Simat Ward", "Cheptiret/Kipchamo Ward", "Racecourse Ward", "Langas Ward"],
+        "Kesses": ["Kesses Ward", "Tarakwa Ward", "Cheptiret/Kipchamo Ward", "" /* Add other wards */],
+        "Moiben": ["Moiben Ward", "Tembely/Chemase Ward", "Sergoit Ward", "Chebarus Ward"],
+        "Soy": ["Soy Ward", "Ziwa Ward", "Kiplombe Ward", "Kapkures Ward"],
+        "Turbo": ["Turbo Ward", "Kamagut Ward", "Tapsagoi Ward", "Kipsomba Ward"]
+    },
+    "Vihiga": {
+        "Emuhaya": ["Central Bunyore Ward", "West Bunyore Ward", "East Bunyore Ward", "Itumbi/Central Bunyore Ward"],
+        "Luanda": ["Luanda Town Ward", "Emabungo Ward", "Wamuluma Ward", "Mwibona Ward"],
+        "Sabatia": ["Chavakali Ward", "Izava/Lyaduywa Ward", "North Maragoli Ward", "Sabatia Ward", "" /* Add other wards */],
+        "Vihiga": ["Central Maragoli Ward", "North Maragoli Ward", "South Maragoli Ward", "" /* Add other wards */],
+        "Hamisi": ["Hamisi Ward", "Jepkoyai Ward", "Gamoi Ward", "Shirugu/Mugai Ward"]
+    },
+    "Wajir": {
+        "Eldas": ["Eldas Ward", "Boru Ward", "" /* Add other wards */],
+        "Habaswein": ["Habaswein Ward", "Abakore Ward", "Lagbogol Ward", "" /* Add other wards */],
+        "Lafey": ["Lafey Ward", "Fino Ward", "Warankara Ward", "" /* Add other wards */],
+        "Mdira": ["Mdira Ward", "Sarman Ward", "" /* Add other wards */], // Note: Mdira might be a location, not a full subcounty. Data verification needed.
+        "Tarbaj": ["Tarbaj Ward", "Sarman Ward", "" /* Add other wards */],
+        "Wajir East": ["Wajir East Ward", "Township Ward", "Hospital Ward", "" /* Add other wards */],
+        "Wajir North": ["Bute Ward", "Korondile Ward", "Danaba Ward", "" /* Add other wards */],
+        "Wajir South": ["Lagbogol Ward", "Benane Ward", "Diff Ward", "" /* Add other wards */],
+        "Wajir West": ["Arbajahan Ward", "Ganyure Ward", "" /* Add other wards */]
+    },
+    "West Pokot": {
+        "Kapenguria": ["Kapenguria Ward", "Mnagei Ward", "Riwo Ward", "" /* Add other wards */],
+        "Kacheliba": ["Kacheliba Ward", "Suam Ward", "Kasei Ward", "" /* Add other wards */],
+        "Pokot South": ["Sook Ward", "Wei Wei Ward", "" /* Add other wards */],
+        "Sigor": ["Sigor Ward", "Cheptulel Ward", "Sekerr Ward", "" /* Add other wards */]
+    }
+};
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const countySelect = document.getElementById('countySelect');
+            const subCountySelect = document.getElementById('subCountySelect');
+            const ward = document.getElementById('ward');
+
+            function populateCounties() {
+                for (const county in countyData) {
+                    const option = document.createElement('option');
+                    option.value = county;
+                    option.textContent = county;
+                    countySelect.appendChild(option);
+                }
+            }
+
+            function populateSubCounties(selectedCounty) {
+                subCountySelect.innerHTML = '<option value="" disabled selected>-- Select Your Sub-County --</option>';
+                ward.innerHTML = '<option value="" disabled selected>-- Select Your Ward --</option>';
+                ward.disabled = true;
+
+                if (selectedCounty && countyData[selectedCounty]) {
+                    const subCounties = Object.keys(countyData[selectedCounty]);
+                    subCounties.forEach(sub => {
+                        const option = document.createElement('option');
+                        option.value = sub;
+                        option.textContent = sub;
+                        subCountySelect.appendChild(option);
+                    });
+                    subCountySelect.disabled = false;
+                } else {
+                    subCountySelect.disabled = true;
+                }
+            }
+
+            function populateEstates(selectedCounty, selectedSubCounty) {
+                ward.innerHTML = '<option value="" disabled selected>-- Select Your Ward --</option>';
+
+                if (
+                    selectedCounty &&
+                    selectedSubCounty &&
+                    countyData[selectedCounty] &&
+                    countyData[selectedCounty][selectedSubCounty]
+                ) {
+                    countyData[selectedCounty][selectedSubCounty].forEach(estate => {
+                        const option = document.createElement('option');
+                        option.value = estate;
+                        option.textContent = estate;
+                        ward.appendChild(option);
+                    });
+                    ward.disabled = false;
+                } else {
+                ward.disabled = true;
+                }
+            }
+
+            countySelect.addEventListener('change', function () {
+                const selectedCounty = this.value;
+                populateSubCounties(selectedCounty);
+            });
+
+            subCountySelect.addEventListener('change', function () {
+                const selectedCounty = countySelect.value;
+                const selectedSubCounty = this.value;
+                populateEstates(selectedCounty, selectedSubCounty);
+            });
+
+            populateCounties();
+        });
+    </script>
+
+</body>
+</html>

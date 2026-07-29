@@ -1,0 +1,26 @@
+# Environment variables
+.env
+.env.*
+*.local
+
+# IDE & Editor
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+logs/
+*.pid
+
+# Temporary files
+*.tmp
+.tmp/
+temp/
+
+# OS
+Thumbs.db
+.DS_Store

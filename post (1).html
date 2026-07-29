@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin - Post Notification</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .card-header {
+      background-color: rgba(15, 12, 50, 0.619);
+      color: #fff;
+    }
+
+    .btn-custom {
+      background-color: #F25A2C;
+      color: #fff;
+      border: none;
+    }
+
+    .btn-custom:hover {
+      background-color: #e04e24;
+    }
+
+    .card-title {
+      font-weight: 600;
+    }
+
+    /* Styles for response messages */
+    .response {
+        margin-top: 15px;
+        padding: 10px;
+        border-radius: 5px;
+        font-weight: bold; /* Added for emphasis */
+    }
+
+    .response.success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .response.error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+    .response.info { /* Added for intermediate messages */
+        background-color: #cfe2ff;
+        color: #052c65;
+        border: 1px solid #b6d4fe;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container mt-5">
+    <div class="card shadow-lg">
+      <div class="card-header">
+        <h5 class="mb-0 card-title">📢 Post a New Notification</h5>
+      </div>
+      <div class="card-body">
+        <form id="notificationForm" method="POST"> <div class="mb-3">
+            <label for="title" class="form-label">Notification Title</label>
+            <input
+              type="text"
+              class="form-control"
+              name="title"
+              id="title"
+              placeholder="e.g., Upcoming Meeting"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Message</label>
+            <textarea
+              class="form-control"
+              name="message"
+              id="message"
+              rows="4"
+              placeholder="Enter the full message here..."
+              required
+            ></textarea>
+          </div>
+          <button type="submit" class="btn btn-custom">
+            Post Notification & Send SMS
+          </button>
+        </form>
+        
+    <div class="response" id="responseMsg"></div>
+      </div>
+    </div>    
+  </div>
+
+<script>
+    document.getElementById('notificationForm').addEventListener('submit', async function(e) {
+      e.preventDefault(); // Prevent default form submission
+      
+      const title = document.getElementById('title').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const responseMsgDiv = document.getElementById('responseMsg');
+
+      // Initial validation
+      if (!title || !message) {
+        responseMsgDiv.innerText = "Notification Title and Message cannot be empty!";
+        responseMsgDiv.className = 'response error';
+        return;
+      }
+
+      // --- STEP 1: Send data to post.php for database insertion ---
+      responseMsgDiv.innerText = 'Saving notification to database...';
+      responseMsgDiv.className = 'response info';
+
+      try {
+        const dbResponse = await fetch('post.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({  
+            title: title,
+            message: message
+          })
+        });
+
+        // Check if the HTTP response for DB save was successful (e.g., 200 OK)
+        if (!dbResponse.ok) {
+            const errorText = await dbResponse.text(); // Get raw text for debugging server errors
+            console.error('DB Save HTTP Error:', errorText);
+            throw new Error(`Failed to save to database (HTTP ${dbResponse.status}). Check console.`);
+        }
+        const dbResult = await dbResponse.json(); // Parse the JSON response from post.php
+
+        if (dbResult.status !== 'success') {
+          // If DB operation itself returned an error status
+          responseMsgDiv.innerText = "Error saving to database: " + dbResult.message;
+          responseMsgDiv.className = 'response error';
+          return; // Stop here if DB save failed
+        }
+
+        // --- STEP 2: If DB save successful, proceed to send SMS via sms.php ---
+        responseMsgDiv.innerText = dbResult.message + ' Now attempting to send SMS broadcast...';
+        responseMsgDiv.className = 'response info'; // Update status message
+
+        const smsResponse = await fetch('sms.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({  
+            message: message // sms.php only needs the message content
+          })
+        });
+
+        // Check if the HTTP response for SMS send was successful
+        if (!smsResponse.ok) {
+            const errorText = await smsResponse.text();
+            console.error('SMS Send HTTP Error:', errorText);
+            throw new Error(`Failed to send SMS (HTTP ${smsResponse.status}). Check console.`);
+        }
+        const smsResult = await smsResponse.json(); // Parse the JSON response from sms.php
+
+        if (smsResult.status === 'success') {
+          responseMsgDiv.innerText = dbResult.message + ' ' + smsResult.message;
+          responseMsgDiv.className = 'response success';
+        } else {
+          // DB save was successful, but SMS failed
+          responseMsgDiv.innerText = dbResult.message + ' However, SMS Send Error: ' + smsResult.message;
+          responseMsgDiv.className = 'response error'; // Or a warning class if you have one
+        }
+
+        // Clear the form fields after both operations have attempted to complete
+        document.getElementById('title').value = '';
+        document.getElementById('message').value = '';
+
+      } catch (error) {
+        // Catch any network errors or errors thrown during parsing/checks
+        console.error('An unexpected error occurred:', error);
+        responseMsgDiv.innerText = "An unexpected error occurred. Please check console for details: " + error.message;
+        responseMsgDiv.className = 'response error';
+      }
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

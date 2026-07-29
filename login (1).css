@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f3f4f6;
+    margin-top: 80px;
+    padding-bottom: calc(10vh + 60px);
+}
+
+/* ------------ Login Container ------------ */
+.box-area {
+    width: 930px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* ------------ Right Box ------------ */
+.right-box {
+    padding: 40px 30px 40px 40px;
+}
+
+h2 {
+    color: #202155;
+    font-weight: 500;
+}
+
+p {
+    color: #F25A2C;
+    margin-bottom: 10px;
+}
+
+small {
+    color: #09550f;
+    display: block;
+    margin-top: 10px;
+}
+
+/* ------------ Buttons ------------ */
+#btn {
+    background-color: #2E8B57;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#btn:hover {
+    background-color: #256b45;
+}
+
+/* ------------ Custom Placeholder ------------ */
+::placeholder {
+    font-size: 16px;
+    color: #202155;
+}
+
+/* ------------ Border Radius Utility Classes ------------ */
+.rounded-4 {
+    border-radius: 20px;
+}
+
+.rounded-5 {
+    border-radius: 30px;
+}
+
+/* ------------ Responsive Styles ------------ */
+@media only screen and (max-width: 768px) {
+    .box-area {
+        width: 100%;
+        margin: 0 10px;
+    }
+
+    .left-box {
+        height: 100px;
+        overflow: hidden;
+    }
+
+    .right-box {
+        padding: 20px;
+    }
+}
